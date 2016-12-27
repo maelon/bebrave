@@ -2,6 +2,6 @@
 
 import config from 'src/config';
 
-import 'src/home';
+import 'pages/home';
 
 console.log(config.version);
