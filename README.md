@@ -1,2 +1,2 @@
-# bebrave
-bebrave
+# jscaffold webpack template
+
