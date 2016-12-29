@@ -54,6 +54,14 @@ module.exports = {
                     limit: 10000,
                     name: path.join('static', 'fonts/[name].[hash:7].[ext]')
                 }
+            },
+            {
+                test: /\.mp3$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'file',
+                query: {
+                    name: path.join('static', 'audio/[name].[hash:7].[ext]')
+                }
             }
         ]
     },

@@ -1,13 +1,10 @@
 'use strict';
 
 class Audio {
-    construct(conf) {
-        this._config = conf;
+    construct() {
+        this._audio = new Audio();
     }
 
-    /**
-    * 
-    */
     play(t = 0) {
     }
 
@@ -18,5 +15,4 @@ class Audio {
     }
 
     reset() {
-    }
 }
