@@ -111,7 +111,7 @@
 
     var hasCache = function(modname, modversion) {
         if(window.localStorage && typeof modname === 'string') {
-            var mod = window.localStorage.getItem('paiband_cache_' + modname);
+            var mod = window.localStorage.getItem('bebrave_cache_' + modname);
             if(mod && modversion) {
                 mod = JSON.parse(mod);
                 return mod['version'] === modversion;
@@ -125,7 +125,7 @@
     var setCache = function(modname, modversion, modcontent) {
         if(window.localStorage && typeof modname === 'string' && typeof modversion === 'string' && typeof modcontent === 'string') {
             try {
-                window.localStorage.setItem('paiband_cache_' + modname, JSON.stringify({
+                window.localStorage.setItem('bebrave_cache_' + modname, JSON.stringify({
                     version: modversion,
                     content: modcontent
                 }))
@@ -136,7 +136,7 @@
 
     var getCache = function(modname, modversion) {
         if(window.localStorage && typeof modname === 'string') {
-            var mod = window.localStorage.getItem('paiband_cache_' + modname);
+            var mod = window.localStorage.getItem('bebrave_cache_' + modname);
             if(mod) {
                 mod = JSON.parse(mod);
                 if(modversion) {
@@ -168,7 +168,7 @@
             var i = 0, key;
             for(var i = 0; i < len; i++) {
                 key = window.localStorage.key(i);
-                if(key.indexOf('paiband_cache_') !== -1) {
+                if(key.indexOf('bebrave_cache_') !== -1) {
                     removeCache(key);
                 }
             }

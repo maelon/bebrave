@@ -1,0 +1,12 @@
+.audio-container {
+}
+
+.audio-container audio {
+    display: none;
+}
+
+.audio-container .audio-progress {
+}
+
+.audio-container .audio-time {
+}

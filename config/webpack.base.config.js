@@ -21,6 +21,7 @@ module.exports = {
         alias: {
             'src': path.resolve(__dirname, '../src'),
             'assets': path.resolve(__dirname, '../src/assets'),
+            'libs': path.resolve(__dirname, '../src/libs'),
             'pages': path.resolve(__dirname, '../src/pages'),
             'services': path.resolve(__dirname, '../src/services'),
             'components': path.resolve(__dirname, '../src/components')
@@ -36,6 +37,11 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel'
+            },
+            {
+                test: /\.css/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'style!css'
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
