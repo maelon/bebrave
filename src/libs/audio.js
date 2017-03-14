@@ -27,40 +27,19 @@ class Audio {
         this._audio.addEventListener('waiting', this._waiting);
         this._audio.addEventListener('error', this._error);
 
-        this._readyCall = null;
-        this._stopCall = null;
-        this._playCall = null;
-        this._pauseCall = null;
         this._updateCall = null;
-    }
-
-    listenReady(callback) {
-        if(typeof callback === 'function') {
-            this._readyCall = callback;
-        }
-    }
-
-    listenStop(callback) {
-        if(typeof callback === 'function') {
-            this._stopCall = callback;
-        }
-    }
-
-    listenPause(callback) {
-        if(typeof callback === 'function') {
-            this._pauseCall = callback;
-        }
-    }
-
-    listenPlay(callback) {
-        if(typeof callback === 'function') {
-            this._playCall = callback;
-        }
+        this._errorCall = null;
     }
 
     listenUpdate(callback) {
         if(typeof callback === 'function') {
             this._updateCall = callback;
+        }
+    }
+
+    listenError(callback) {
+        if(typeof callback === 'function') {
+            this._errorCall = callback;
         }
     }
 
@@ -81,6 +60,9 @@ class Audio {
             this._audio.currentTime = t;
         }
         this._audio.pause();
+    }
+
+    _update(info) {
     }
 
     _canplay() {
@@ -104,24 +86,57 @@ class Audio {
 
     _loadeddata(e) {
         console.log('loadeddata', e);
-    }
-
-    _loadedmetadata(e) {
-        console.log('loademetaddata', this._readyCall, e);
-        if(this._readyCall) {
+        if(this._updateCall) {
             const a = e.target;
-            this._readyCall({
+            const info = {
                 'src': a.currentSrc,
                 'duration': a.duration,
                 'volume': a.volume,
                 'title': a.title,
-                'lang': a.lang
-            });
+                'lang': a.lang,
+                'state': 'play',
+                'currentTime': a.currentTime
+            };
+            a.ended && (meta.state = 'stop');
+            a.paused && (meta.state = 'pause');
+            this._updateCall(info);
+        }
+    }
+
+    _loadedmetadata(e) {
+        console.log('loadmetadata', e);
+        if(this._updateCall) {
+            const a = e.target;
+            const info = {
+                'src': a.currentSrc,
+                'duration': a.duration,
+                'volume': a.volume,
+                'title': a.title,
+                'lang': a.lang,
+                'state': 'play',
+                'currentTime': a.currentTime
+            };
+            a.ended && (meta.state = 'stop');
+            a.paused && (meta.state = 'pause');
+            this._updateCall(info);
         }
     }
 
     _loadstart(e) {
         console.log('loadstart', e);
+        if(this._updateCall) {
+            const a = e.target;
+            const info = {
+                'src': a.currentSrc,
+                'duration': a.duration,
+                'volume': a.volume,
+                'title': a.title,
+                'lang': a.lang,
+                'state': 'load',
+                'currentTime': a.currentTime
+            };
+            this._updateCall(info);
+        }
     }
 
     _pause(e) {

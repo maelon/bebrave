@@ -22,9 +22,9 @@ class Audio extends React.Component {
 
     componentDidMount() {
         this._audioLib = new AudioLib(this._audio);
-        this._audioReady = this._audioReady.bind(this);
-        this._audioLib.listenReady(this._audioReady);
-        this._audioLib.listenUpdate(this._audioTimeUpdate);
+        this._audioUpdate = this._audioUpdate.bind(this);
+        this._audioLib.listenUpdate(this._audioUpdate);
+        this._audioLib.listenError(this._audioError);
     }
 
     componentWillUnmount() {
@@ -41,18 +41,30 @@ class Audio extends React.Component {
         );
     }
 
-    _audioReady(metadata) {
-        console.log('audio ready', metadata);
+    /**
+    * {
+    *     src: mp3 url
+    *     duration: total time (second)
+    *     volume: current volume
+    *     title: xxxx
+    *     lang: xxxx
+    *     state: 'play', 'pause', 'stop'
+    *     currentTime: time (second)
+    * }
+    */
+    _audioUpdate(info) {
+        console.log('audio update', info);
     }
 
-    _audioTimeUpdate() {
-        console.log('audio update');
+    _audioError(error) {
     }
 
     _updateAudioProgress(precent) {
     }
 
+    //t单位秒
     _formatTime(t) {
+
     }
 }
 
