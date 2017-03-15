@@ -4,14 +4,18 @@ class Audio {
     constructor(audio) {
         this._audio = audio;
         console.log('listen', this._audio);
+        this._update = this._update.bind(this);
+
         this._audio.addEventListener('canplay', this._canplay);
         this._audio.addEventListener('canplaythrought', this._canplaythrough);
         this._audio.addEventListener('durationchange', this._durationchange);
         this._audio.addEventListener('emptied', this._emptied);
         this._audio.addEventListener('ended', this._ended);
+        this._loadeddata = this._loadeddata.bind(this);
         this._audio.addEventListener('loadeddata', this._loadeddata);
         this._loadedmetadata = this._loadedmetadata.bind(this);
         this._audio.addEventListener('loadedmetadata', this._loadedmetadata);
+        this._loadstart = this._loadstart.bind(this);
         this._audio.addEventListener('loadstart', this._loadstart);
         this._audio.addEventListener('pause', this._pause);
         this._audio.addEventListener('play', this._play);
@@ -63,6 +67,18 @@ class Audio {
     }
 
     _update(info) {
+        if(this._updateCall) {
+            const a = this._audio;
+            const i = Object.assign({
+                'src': a.currentSrc,
+                'duration': a.duration,
+                'volume': a.volume,
+                'title': a.title,
+                'lang': a.lang,
+                'currentTime': a.currentTime
+            }, info);
+            this._updateCall(i);
+        }
     }
 
     _canplay() {
@@ -86,57 +102,31 @@ class Audio {
 
     _loadeddata(e) {
         console.log('loadeddata', e);
-        if(this._updateCall) {
-            const a = e.target;
-            const info = {
-                'src': a.currentSrc,
-                'duration': a.duration,
-                'volume': a.volume,
-                'title': a.title,
-                'lang': a.lang,
-                'state': 'play',
-                'currentTime': a.currentTime
-            };
-            a.ended && (meta.state = 'stop');
-            a.paused && (meta.state = 'pause');
-            this._updateCall(info);
-        }
+        const a = e.target;
+        const info = {
+            'state': 'play'
+        };
+        a.ended && (info.state = 'stop');
+        a.paused && (info.state = 'pause');
+        this._update(info);
     }
 
     _loadedmetadata(e) {
         console.log('loadmetadata', e);
-        if(this._updateCall) {
-            const a = e.target;
-            const info = {
-                'src': a.currentSrc,
-                'duration': a.duration,
-                'volume': a.volume,
-                'title': a.title,
-                'lang': a.lang,
-                'state': 'play',
-                'currentTime': a.currentTime
-            };
-            a.ended && (meta.state = 'stop');
-            a.paused && (meta.state = 'pause');
-            this._updateCall(info);
-        }
+        const a = e.target;
+        const info = {
+            'state': 'ready',
+        };
+        this._update(info);
     }
 
     _loadstart(e) {
         console.log('loadstart', e);
-        if(this._updateCall) {
-            const a = e.target;
-            const info = {
-                'src': a.currentSrc,
-                'duration': a.duration,
-                'volume': a.volume,
-                'title': a.title,
-                'lang': a.lang,
-                'state': 'load',
-                'currentTime': a.currentTime
-            };
-            this._updateCall(info);
-        }
+        const a = e.target;
+        const info = {
+            'state': 'load'
+        };
+        this._update(info);
     }
 
     _pause(e) {
