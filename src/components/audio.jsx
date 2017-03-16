@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import jutils from 'jutils';
 
 import AudioLib from 'libs/audio';
 import './audio.css';
@@ -25,6 +26,8 @@ class Audio extends React.Component {
         this._audioUpdate = this._audioUpdate.bind(this);
         this._audioLib.listenUpdate(this._audioUpdate);
         this._audioLib.listenError(this._audioError);
+
+        this._drawAudioBtnInit();
     }
 
     componentWillUnmount() {
@@ -38,7 +41,7 @@ class Audio extends React.Component {
         return (
             <div className="audio-container">
                 <audio ref={audio => this._audio = audio} src={this.state.src}/>
-                <canvas ref={canvas => this._audioUIProgress = canvas} className="audio-state" width="200" height="200"/>
+                <canvas ref={canvas => this._audioUIProgress = canvas} className="audio-state" width="100" height="100"/>
                 <span className="audio-time">{this._formatTime(this.state.currentTime)}</span>
             </div>
         );
@@ -78,11 +81,43 @@ class Audio extends React.Component {
     }
 
     _drawAudioBtnInit() {
+        const cvsW = this._audioUIProgress.width;
+        const cvsH = this._audioUIProgress.height;
         const ctx = this._audioUIProgress.getContext('2d');
-        ctx.clearRect(0, 0, this._audioUIProgress.width, this._audioUIProgress.height);
+
     }
 
     _drawAudioBtnLoad() {
+        const cvsW = this._audioUIProgress.width;
+        const cvsH = this._audioUIProgress.height;
+        const ctx = this._audioUIProgress.getContext('2d');
+        const count = 25;
+        const speed = 6;
+        let rotation = 270 * (Math.PI / 180);
+        ctx.clearRect(0, 0, cvsW, cvsH);
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.75)';
+
+        const loop = () => {
+            jutils.requestAnimFrame.call(null, loop);
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
+            ctx.fillRect(0, 0, 100, 100);
+            rotation += speed / 100;                  
+
+            ctx.save();
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.translate(50, 50);
+            ctx.rotate(rotation); 
+            let i = count;
+            while(i--) {               
+                ctx.beginPath();
+                ctx.arc(0, 0, i + (Math.random() * 25), Math.random(), Math.PI / 3 + (Math.random() / 12), false);
+                ctx.stroke();
+            } 
+            ctx.restore();                     
+        };
+        loop();
     }
 
     _drawAudioBtnReady() {
