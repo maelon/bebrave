@@ -1,0 +1,62 @@
+{
+	"buildDate": "5/4/2017, 5:48:15 PM",
+	"buildNumber": "20161107v1",
+	"moduleList": [
+		{
+			"name": "load",
+			"hash": "ffe070ec734de0b3b4e3",
+			"type": "js"
+		},
+		{
+			"name": "app",
+			"hash": "258d8df02b73e9789831",
+			"type": "js"
+		},
+		{
+			"name": "baselib",
+			"hash": "1041c834a07467391d5d",
+			"type": "js"
+		}
+	],
+	"chunkList": [
+		{
+			"chunkname": "config",
+			"chunkid": 0,
+			"chunkids": [
+				0,
+				1
+			],
+			"chunkFullHash": "9e5a4921e5c8fe76ce569561e3a2376f",
+			"chunkRenderedHash": "9e5a4921e5c8fe76ce56"
+		},
+		{
+			"chunkname": "load",
+			"chunkid": 1,
+			"chunkids": [
+				1
+			],
+			"chunkFullHash": "ffe070ec734de0b3b4e3b7b6ea729513",
+			"chunkRenderedHash": "ffe070ec734de0b3b4e3"
+		},
+		{
+			"chunkname": "baselib",
+			"chunkid": 2,
+			"chunkids": [
+				2,
+				1
+			],
+			"chunkFullHash": "1041c834a07467391d5d1939c7206a0b",
+			"chunkRenderedHash": "1041c834a07467391d5d"
+		},
+		{
+			"chunkname": "app",
+			"chunkid": 3,
+			"chunkids": [
+				3,
+				1
+			],
+			"chunkFullHash": "258d8df02b73e97898310d345629d401",
+			"chunkRenderedHash": "258d8df02b73e9789831"
+		}
+	]
+}

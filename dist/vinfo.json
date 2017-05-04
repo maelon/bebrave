@@ -1,0 +1,24 @@
+{
+	"buildHash": "27c7219ae23d201fe7ce",
+	"buildDate": "5/4/2017, 5:48:15 PM",
+	"buildVersion": "v1.0.0",
+	"buildNumber": "20161107v1",
+	"cache": true,
+	"moduleList": [
+		{
+			"name": "load",
+			"hash": "ffe070ec734de0b3b4e3",
+			"type": "js"
+		},
+		{
+			"name": "app",
+			"hash": "258d8df02b73e9789831",
+			"type": "js"
+		},
+		{
+			"name": "baselib",
+			"hash": "1041c834a07467391d5d",
+			"type": "js"
+		}
+	]
+}

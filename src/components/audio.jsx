@@ -15,10 +15,12 @@ class Audio extends React.Component {
             'src': 'http://static.fe.ptdev.cn/test.mp3',
             'audioState': 'init', //init load ready play pause stop
             'audioCurrentTime': 0,
+            'pageName': 'hhh'
         };
         this._audio = null;
         this._audioLib = null;
         this._audioUIProgress = null;
+        this._handleHash = this._handleHash.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +30,22 @@ class Audio extends React.Component {
         this._audioLib.listenError(this._audioError);
 
         this._drawAudioBtnInit();
+
+        window.addEventListener('hashchange', this._handleHash);
+        this._handleHash();
+    }
+
+    _handleHash() {
+        const that = this;
+        if(window.location.hash === '#c') {
+            (new Promise(resolve => {
+                require.ensure(['src/config'], require => {
+                    resolve();
+                }, 'config');
+            })).then(() => {
+                that.setState({ pageName: 'c' });
+            });
+        } 
     }
 
     componentWillUnmount() {
@@ -40,6 +58,7 @@ class Audio extends React.Component {
     render() {
         return (
             <div className="audio-container">
+                <div>{ this.state.pageName }</div>
                 <audio ref={audio => this._audio = audio} src={this.state.src}/>
                 <canvas ref={canvas => this._audioUIProgress = canvas} className="audio-state" width="100" height="100"/>
                 <span className="audio-time">{this._formatTime(this.state.currentTime)}</span>
