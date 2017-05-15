@@ -20,7 +20,6 @@ class Audio extends React.Component {
         this._audio = null;
         this._audioLib = null;
         this._audioUIProgress = null;
-        this._handleHash = this._handleHash.bind(this);
     }
 
     componentDidMount() {
@@ -30,22 +29,6 @@ class Audio extends React.Component {
         this._audioLib.listenError(this._audioError);
 
         this._drawAudioBtnInit();
-
-        window.addEventListener('hashchange', this._handleHash);
-        this._handleHash();
-    }
-
-    _handleHash() {
-        const that = this;
-        if(window.location.hash === '#c') {
-            (new Promise(resolve => {
-                require.ensure(['src/config'], require => {
-                    resolve();
-                }, 'config');
-            })).then(() => {
-                that.setState({ pageName: 'c' });
-            });
-        } 
     }
 
     componentWillUnmount() {
