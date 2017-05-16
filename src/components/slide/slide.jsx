@@ -8,9 +8,19 @@ class Slide extends React.component {
         super(props);
 
         this.state = {};
+
+        this._dom = null;
+        this._slideLib = null;
+    }
+
+    componentDidMount() {
+        this._slideLib = new SlideLib({
+            
+        });
     }
 
     render() {
+        <div ref={dom => { this._dom = dom; }}></div>
     }
 }
 
