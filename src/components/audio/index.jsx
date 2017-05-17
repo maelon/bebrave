@@ -4,7 +4,7 @@ import React from 'react';
 import jutils from 'jutils';
 
 import AudioLib from 'libs/audio';
-import './audio.css';
+import './index.css';
 
 class Audio extends React.Component {
     constructor(props) {

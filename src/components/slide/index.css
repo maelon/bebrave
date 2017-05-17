@@ -1,0 +1,12 @@
+.slide-container {
+    width: 100%;
+    height: 100px;
+}
+.slide-container img {
+    width: 100%;
+    height: 100%;
+}
+.slide-container p {
+    width: 100%;
+    height: 100%;
+}

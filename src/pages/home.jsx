@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import BvAudio from 'components/audio';
+import BvSlide from 'components/slide';
 
 const username = (
     <i> 
@@ -13,6 +14,7 @@ const hello = (
         hello { username } 
         <br/>
         <BvAudio/>
+        <BvSlide/>
         <img src={require("assets/tet.jpeg")}/>
     </div>
 );

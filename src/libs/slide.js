@@ -13,7 +13,7 @@ class SlideLib {
     *  }
     */
     constructor(config) {
-        this._container = config['app'];
+        this._container = config['container'];
         this._totalTime = config['totalTime']
         this._sources = config['sources'] || [];
 
@@ -27,10 +27,8 @@ class SlideLib {
     */
     play(t) {
         t && (this._currentTsp = t);
-        const idx = this._getIdxByCurTsp(this._currentTsp);
-        if(this._currentIdx != idx) {
-            this._showSlide(this._currentIdx);
-        }
+        this._currentIdx = this._getIdxByCurTsp(this._currentTsp);
+        this._showSlide(this._currentIdx);
 
         this._timerId = setInterval(() => {
             this._currentTsp = this._formatTime2String(this._addTime(this._currentTsp, 1));
@@ -39,7 +37,9 @@ class SlideLib {
                 return;
             }
             const idx = this._getIdxByCurTsp(this._currentTsp);
+            console.log(this._currentTsp, this._currentIdx, idx);
             if(this._currentIdx != idx) {
+                this._currentIdx = idx;
                 this._showSlide(this._currentIdx);
             }
         }, 1000);
@@ -75,14 +75,14 @@ class SlideLib {
     _getIdxByCurTsp() {
         for(let i = 0; i < this._sources.length; i++) {
             if(i != this._sources.length - 1) {
-                if(this._compareTime(this._currentTsp, this._source[i].timestamp)
-                    && !this._compareTime(this._currentTsp, this._source[i + 1].timestamp)
+                if(this._compareTime(this._currentTsp, this._sources[i].timestamp)
+                    && !this._compareTime(this._currentTsp, this._sources[i + 1].timestamp)
                 ) {
                     return i;
                 } 
                 continue;
             } else {
-                return this._source.length - 1;
+                return this._sources.length - 1;
             }
         }
     }
